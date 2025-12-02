@@ -126,6 +126,31 @@ class Program
         Console.WriteLine("First >10 min (safe): " + (safeResult?.Title ?? "None"));
         Console.WriteLine();
 
+        // Task6
+        Console.WriteLine("===== TASK 6: LINQ Advanced =====");
+
+        List<TourBooking> tours = new List<TourBooking>
+        {
+            new TourBooking{CustomerName="Kaushal", Destination="Japan", Price=20000, DurationInDay=7, IsInternational=true},
+            new TourBooking{CustomerName="Ram", Destination="Pokhara", Price=8000, DurationInDay=3, IsInternational=false},
+            new TourBooking{CustomerName="Babu Bhaiya", Destination="Thailand", Price=15000, DurationInDay=5, IsInternational=true}
+        };
+
+        var filtered = tours
+            .Where(t => t.Price > 10000 && t.DurationInDay > 4)
+            .Select(t => new
+            {
+                t.CustomerName,
+                t.Destination,
+                Category = t.IsInternational ? "International" : "Domestic",
+                t.Price
+            })
+            .OrderBy(t => t.Category)
+            .ThenBy(t => t.Price);
+
+        foreach (var t in filtered)
+            Console.WriteLine($"{t.CustomerName} | {t.Destination} | {t.Category} | Rs. {t.Price}");
+
 
     }
 }
