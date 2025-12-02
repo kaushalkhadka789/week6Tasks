@@ -82,6 +82,50 @@ class Program
 
         Console.WriteLine();
 
+        // Task5
+        Console.WriteLine("===== TASK 5: LINQ Continued =====");
+
+        // 5.1 Aggregation
+        List<CashierSales> sales = new List<CashierSales>
+        {
+            new CashierSales{CashierName="A", Sales=5000},
+            new CashierSales{CashierName="B", Sales=7000},
+            new CashierSales{CashierName="C", Sales=9000},
+        };
+
+        Console.WriteLine($"Total Cashiers: {sales.Count}");
+        Console.WriteLine($"Total Sales: {sales.Sum(s => s.Sales)}");
+        Console.WriteLine($"Highest Sale: {sales.Max(s => s.Sales)}");
+        Console.WriteLine($"Lowest Sale: {sales.Min(s => s.Sales)}");
+        Console.WriteLine($"Average Sale: {sales.Average(s => s.Sales)}");
+
+        // 5.2 Applicants
+        List<Applicant> applicants = new List<Applicant>
+        {
+            new Applicant{Name="Rita", Age=17},
+            new Applicant{Name="Hari", Age=20},
+            new Applicant{Name="Sam", Age=15},
+        };
+
+        Console.WriteLine("Any applicant under 18: " + applicants.Any(a => a.Age < 18));
+        Console.WriteLine("All applicants above 16: " + applicants.All(a => a.Age > 16));
+
+        // 5.3 Music
+        List<Music> tracks = new List<Music>
+        {
+            new Music{Title="Song1", DurationSec=150},
+            new Music{Title="Song2", DurationSec=300},
+            new Music{Title="Song3", DurationSec=700},
+        };
+
+        Console.WriteLine("First Song: " + tracks.First().Title);
+        Console.WriteLine("Last Song: " + tracks.Last().Title);
+        Console.WriteLine("First >4 min: " + tracks.First(t => t.DurationSec > 240).Title);
+
+        var safeResult = tracks.FirstOrDefault(t => t.DurationSec > 600);
+        Console.WriteLine("First >10 min (safe): " + (safeResult?.Title ?? "None"));
+        Console.WriteLine();
+
 
     }
 }
